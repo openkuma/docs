@@ -1,28 +1,22 @@
-name: Deploy to GitHub Pages
+name: Validate Documentation
 
 on:
   push:
     branches: main
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      
-      - name: Install Mintlify
-        run: npm install -g mintlify
-      
-      - name: Build
-        run: mintlify build
-      
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+
+      - name: Install Mint
+        run: npm install -g mint
+
+      - name: Validate
+        run: mint validate
